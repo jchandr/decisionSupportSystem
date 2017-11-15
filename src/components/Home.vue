@@ -8,7 +8,7 @@
         {{downloadMsg}}
         <v-icon right dark>cloud_download</v-icon>
       </v-btn>
-      <v-container fluid>
+      <!-- <v-container fluid>
           <v-layout column align-center>
             <img src="/static/v.png" alt="Vuetify.js" class="mb-5" />
             <blockquote>
@@ -20,7 +20,7 @@
               </footer>
             </blockquote>
           </v-layout>
-      </v-container>
+      </v-container> -->
 
          <FileUpload></FileUpload>
     </v-layout>

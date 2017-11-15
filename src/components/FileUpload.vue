@@ -1,94 +1,60 @@
 <template>
-    <div>
-      <v-btn>
-        {{uploadMsg}}
-        <v-icon right dark>cloud_upload</v-icon>
-      </v-btn>
-      <v-text-field prepend-icon="attach_file" single-line
-                    v-model="filename" :label="label" :required="required"
-                    @click.native="onFocus"
-                    :disabled="disabled" ref="fileTextField"></v-text-field>
-      <input type="file" :accept="accept" :multiple="false" :disabled="disabled"
-             ref="fileInput" @change="onFileChange">
-    </div>
+  <div>
+    <v-layout>
+    <v-flex>
+      <v-card>
+        <input type='file' name="sampleFile" @change='handleFileInput'>
+        <v-card-media
+        src="https://static1.squarespace.com/static/5269a9bce4b07233cf8781fe/t/54aef1d7e4b0861dc9973663/1420751319960/"
+        height="200px">
+        </v-card-media>
+        <v-card-title primary-title>
+          <div>
+            <h3 class="headline mb-0">Upload your data CSV File</h3>
+          </div>
+        </v-card-title>
+      </v-card>
+    </v-flex>
+  </v-layout>
+  </div>
 </template>
 <script>
-export default{
+import xlsx from 'xlsx';
+
+export default {
   name: 'FileUpload',
-  props: {
-    value: {
-      type: [Array, String],
-    },
-    accept: {
-      type: String,
-      default: '',
-    },
-    label: {
-      type: String,
-      default: 'Please choose...',
-    },
-    required: {
-      type: Boolean,
-      default: false,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    multiple: {
-      type: Boolean, // not yet possible because of data
-      default: false,
-    },
-  },
   data() {
     return {
-      filename: '',
-      uploadMsg: 'Click Here to Upload the data CSV file',
+      rABS: false,
     };
   },
-  watch: {
-    value(v) {
-      this.filename = v;
-    },
-  },
-  mounted() {
-    this.filename = this.value;
-  },
   methods: {
-    getFormData(files) {
-      const data = new FormData();
-      [...files].forEach((file) => {
-        data.append('data', file, file.name); // currently only one file at a time
-      });
-      return data;
-    },
-    onFocus() {
-      if (!this.disabled) {
-        debugger;
-        this.$refs.fileInput.click();
-      }
-    },
-    onFileChange($event) {
-      const files = $event.target.files || $event.dataTransfer.files;
-      const form = this.getFormData(files);
-      if (files) {
-        if (files.length > 0) {
-          this.filename = [...files].map(file => file.name).join(', ');
-        } else {
-          this.filename = null;
-        }
+    handleFileInput(event) {
+      // const reader = new FileReader();
+      // reader.onload = (e) => {
+      //   var data = e.target.result;
+      //   if(!this.rABS) data = new Uint8Array(data);
+      //   var workbook = xlsx.read(data, { type: rABS ? 'binary' : 'array'});
+      //   console.log(workbook);
+      // };
+      const files = event.target.files;
+      const f = files[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const data = new Uint8Array(e.target.result);
+        const workbook = xlsx.read(data, { type: this.rABS ? 'binary' : 'array' });
+        /* DO SOMETHING WITH workbook HERE */
+        console.log(workbook);
+      };
+      if (this.rABS) {
+        reader.readAsBinaryString(f);
       } else {
-        this.filename = $event.target.value.split('\\').pop();
+        reader.readAsArrayBuffer(f);
       }
-      this.$emit('input', this.filename);
-      this.$emit('formData', form);
     },
   },
 };
 </script>
-<style lang="stylus" scoped>
+<style lang="stylus">
   @import '../stylus/main'
-  input[type=file]
-    position: absolute;
-    left: -99999px;
 </style>
