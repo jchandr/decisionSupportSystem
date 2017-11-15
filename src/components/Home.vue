@@ -22,7 +22,7 @@
           </v-layout>
       </v-container> -->
 
-         <FileUpload></FileUpload>
+         <FileUpload @upload="handleUpload"></FileUpload>
     </v-layout>
   </div>
 </template>
@@ -38,6 +38,14 @@ export default {
     };
   },
   methods: {
+    handleUpload(dataInJson) {
+      this.$router.push({
+        name: 'Result',
+        params: {
+          dataInJson,
+        },
+      });
+    },
   },
   components: {
     FileUpload,

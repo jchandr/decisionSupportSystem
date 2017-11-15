@@ -30,13 +30,6 @@ export default {
   },
   methods: {
     handleFileInput(event) {
-      // const reader = new FileReader();
-      // reader.onload = (e) => {
-      //   var data = e.target.result;
-      //   if(!this.rABS) data = new Uint8Array(data);
-      //   var workbook = xlsx.read(data, { type: rABS ? 'binary' : 'array'});
-      //   console.log(workbook);
-      // };
       const files = event.target.files;
       const f = files[0];
       const reader = new FileReader();
@@ -44,7 +37,8 @@ export default {
         const data = new Uint8Array(e.target.result);
         const workbook = xlsx.read(data, { type: this.rABS ? 'binary' : 'array' });
         /* DO SOMETHING WITH workbook HERE */
-        console.log(workbook);
+        const workbookInJson = xlsx.utils.sheet_to_json(workbook.Sheets.Sheet1);
+        this.$emit('upload', workbookInJson);
       };
       if (this.rABS) {
         reader.readAsBinaryString(f);
