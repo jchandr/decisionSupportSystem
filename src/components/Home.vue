@@ -21,7 +21,6 @@
             </blockquote>
           </v-layout>
       </v-container> -->
-
          <FileUpload @upload="handleUpload"></FileUpload>
     </v-layout>
   </div>
