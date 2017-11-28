@@ -3,11 +3,12 @@
     <router-view></router-view>
     <v-data-table
       v-bind:headers="tableHeaders"
-      :items="workData"
+      :items="filteredInput"
       hide-actions
       class="elevation-1">
       <template slot="items" slot-scope="props">
-        <td class="text-xs">{{ props.item.COMPANY }}</td>
+        <td class="text-xs">{{ props.item.company }}</td>
+        <td class="text-xs">{{ props.item.rank }}</td>
       </template>
       <template slot="no-data">
         <v-alert :value="true" color="error" icon="warning">
@@ -20,6 +21,7 @@
 </template>
 
 <script>
+  import { filter } from 'lodash/collection';
   import dataStructure from '../assets/companyDataStructure';
 
   export default {
@@ -37,11 +39,27 @@
     data() {
       return {
         tableHeaders: [
-          {text: 'Company', value: 'company', align: 'left'},
-          {text: 'Score', value: 'score', align: 'left'},
+          {
+            text: 'Company',
+            value: 'company',
+            align: 'left',
+          },
+          {
+            text: 'Score',
+            value: 'score',
+            align: 'left',
+          },
         ],
         processedInput: [],
+        tempFilteredData: [],
       };
+    },
+    computed: {
+      filteredInput() {
+        this.applyFilters();
+        this.calculateScores();
+        return this.tempFilteredData;
+      },
     },
     methods: {
       processInput() {
@@ -67,6 +85,16 @@
           this.processedInput.push(temp);
         });
       },
+      applyFilters() {
+        this.tempFilteredData = [];
+        this.tempFilteredData = filter(this.processedInput, (o) => {
+          if (this.control.location.isEnabled === true) {
+            return o.state === this.control.location.currentValue;
+          }
+          return true;
+        });
+      },
+      calculateScores() {},
     },
     created() {
       this.processInput();

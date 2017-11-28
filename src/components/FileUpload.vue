@@ -36,7 +36,9 @@
         const reader = new FileReader();
         reader.onload = (e) => {
           const data = new Uint8Array(e.target.result);
-          const workbook = xlsx.read(data, {type: this.rABS ? 'binary' : 'array'});
+          const workbook = xlsx.read(data, {
+            type: this.rABS ? 'binary' : 'array',
+          });
           /* DO SOMETHING WITH workbook HERE */
           this.workbookInJson = xlsx.utils.sheet_to_json(workbook.Sheets.Sheet1);
           this.$emit('upload', this.workbookInJson);
