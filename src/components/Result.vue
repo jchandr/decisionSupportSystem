@@ -22,9 +22,30 @@
                   <v-expansion-panel-content v-for="t in attributes" :key="t.title"
                   v-model="t.isEnabled">
                     <div slot="header">{{ t.title }}</div>
-                    <v-card>
-                      <v-card-text class="black lighten-3">
-                        <pre>{{ t }}</pre>
+                    <v-card class="pa-0 ma-0">
+                      <v-card-text class="black lighten-3 pa-0 ma-0">
+                        <v-radio-group v-if="t.inputType === 'radio'"
+                        v-model="t.currentValue"
+                        class="pa-0 ma-0"
+                        row
+                        wrap>
+                          <v-radio v-for="(key,val) in t.values"
+                          :disabled="!t.isEnabled"
+                          class="pa-0"
+                          :key = "key"
+                          :label="key"
+                          :value="val"></v-radio>
+                        </v-radio-group>
+                        <v-select
+                          v-if="t.inputType == 'dropdown'"
+                          v-model="t.currentValue"
+                          :items="t.values"
+                          item-text="name"
+                          item-value="abbreviation"
+                          label="Select"
+                          single-line
+                          bottom
+                        ></v-select>
                       </v-card-text>
                     </v-card>
                   </v-expansion-panel-content>
@@ -32,9 +53,11 @@
             </v-card-text>
           </v-card>
         </v-flex>
-        <v-flex xs8 text-xs-center>
+        <v-flex xs8 text-xs>
           <v-card dark color="secondary">
-            <v-card-text class="px-0">6</v-card-text>
+            <v-card-text class="px-0">
+              <ResultTable :control="attributes" :workData="workbookData"></ResultTable>
+            </v-card-text>
           </v-card>
         </v-flex>
       </v-layout>
@@ -43,7 +66,8 @@
 </template>
 
 <script>
-import attributes from '../assets/attributes';
+import attributes from '../assets/frontEndAttributes';
+import ResultTable from './ResultTable';
 
 export default {
   name: 'Result',
@@ -58,6 +82,9 @@ export default {
         ...attributes,
       },
     };
+  },
+  components: {
+    ResultTable,
   },
 };
 </script>
