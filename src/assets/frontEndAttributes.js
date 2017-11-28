@@ -1,3 +1,5 @@
+import stateList from './usStateList';
+
 export default {
   domain: {
     title: 'Domain',
@@ -14,11 +16,10 @@ export default {
     title: 'Location',
     isEnabled: false,
     currentValue: undefined,
-    inputType: 'radio',
-    values: {
-      usa: 'USA',
-      multiple: 'Multiple Countries',
-    },
+    inputType: 'dropdown',
+    values: [
+      ...stateList,
+    ],
   },
   // netWorth: {
   //   title: 'Net Worth',
@@ -53,16 +54,16 @@ export default {
   //   min: undefined,
   //   max: undefined,
   // },
-  crossDomainInvestments: {
-    title: 'Cross Domain Investments',
-    inputType: 'radio',
-    currentValue: undefined,
-    isEnabled: false,
-    values: {
-      true: 'Yes',
-      false: 'No',
-    },
-  },
+  // crossDomainInvestments: {
+  //   title: 'Cross Domain Investments',
+  //   inputType: 'radio',
+  //   currentValue: undefined,
+  //   isEnabled: false,
+  //   values: {
+  //     true: 'Yes',
+  //     false: 'No',
+  //   },
+  // },
   consulting: {
     title: 'Consulting',
     inputType: 'radio',

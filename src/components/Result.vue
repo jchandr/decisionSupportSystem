@@ -36,6 +36,16 @@
                           :label="key"
                           :value="val"></v-radio>
                         </v-radio-group>
+                        <v-select
+                          v-if="t.inputType == 'dropdown'"
+                          v-model="t.currentValue"
+                          :items="t.values"
+                          item-text="name"
+                          item-value="abbreviation"
+                          label="Select"
+                          single-line
+                          bottom
+                        ></v-select>
                       </v-card-text>
                     </v-card>
                   </v-expansion-panel-content>
