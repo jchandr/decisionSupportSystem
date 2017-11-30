@@ -14,4 +14,5 @@ export default {
   totalMw2014: undefined,     // float
   totalProduction: undefined, // number
   yearFounded: undefined,     // number
+  score: undefined,           // number
 };

@@ -8,12 +8,13 @@
       class="elevation-1">
       <template slot="items" slot-scope="props">
         <td class="text-xs">{{ props.item.company }}</td>
-        <td class="text-xs">{{ props.item.rank }}</td>
+        <td class="text-xs">{{ props.item.score }}</td>
       </template>
       <template slot="no-data">
         <v-alert :value="true" color="error" icon="warning">
-          Sorry, nothing to display here :( <br>
-          <a href="/">Please click here to Upload the Data again !</a>
+          <p v-if="workData === undefined">Sorry, nothing to display here :(</p>
+          <p v-if="workData !== undefined">No Results for applied Filter</p>
+          <a v-if="workData === undefined" href="/">Please click here to Upload the Data again !</a>
         </v-alert>
       </template>
     </v-data-table>
@@ -23,6 +24,7 @@
 <script>
   import { filter } from 'lodash/collection';
   import dataStructure from '../assets/companyDataStructure';
+  import companyScore from '../assets/scores';
 
   export default {
     name: 'ResultTable',
@@ -57,7 +59,6 @@
     computed: {
       filteredInput() {
         this.applyFilters();
-        this.calculateScores();
         return this.tempFilteredData;
       },
     },
@@ -69,9 +70,14 @@
           };
           temp.city = e.city;
           temp.company = e.company;
-          temp.companySize = e.companySize;
+          temp.companySize = e.companySize.toLowerCase();
           temp.funding = e.funding;
-          temp.primaryMarket = e.primaryMarket;
+          if (e.funding === 'YES') {
+            temp.funding = true;
+          } else {
+            temp.funding = false;
+          }
+          temp.primaryMarket = e.primaryMarket.toLowerCase();
           temp.production2013 = parseFloat(e.production2013);
           temp.production2014 = parseFloat(e.production2014);
           temp.production2015 = parseFloat(e.production2015);
@@ -94,10 +100,15 @@
           return true;
         });
       },
-      calculateScores() {},
+      calculateScores() {
+        this.filteredInput.forEach((e) => {
+          e.score = companyScore(e);
+        });
+      },
     },
     created() {
       this.processInput();
+      this.calculateScores();
     },
   };
 </script>
