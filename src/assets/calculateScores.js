@@ -27,10 +27,10 @@ export default function (company) {
       score += 5;
       break;
     case ('commercial'):
-      score += 5;
+      score += 4;
       break;
     case ('residential'):
-      score += 5;
+      score += 1;
       break;
     default:
       break;

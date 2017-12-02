@@ -1,6 +1,9 @@
 <template>
   <div>
     <router-view></router-view>
+    <v-dialog v-model="changeScoreDialog">
+      <AttributeScore @cancel="changeScoreDialog = false"></AttributeScore>
+    </v-dialog>
     <v-container grid-list-md>
       <v-layout row wrap>
         <v-flex :wrap="true" fluid xs4>
@@ -40,6 +43,8 @@
               </v-expansion-panel>
             <!--</v-card-text>-->
           </v-card>
+          <v-switch :label="customScoreSwitchLablel" v-model="customScoreSwitch"></v-switch>
+          <v-btn @click.native="changeScoreDialog = true" v-if="customScoreSwitch" block> Change Attribute Weightage</v-btn>
         </v-flex>
         <v-flex xs8 text-xs>
           <v-card dark color="secondary">
@@ -54,6 +59,7 @@
 <script>
 import attributes from '../assets/frontEndAttributes';
 import ResultTable from './ResultTable';
+import AttributeScore from './AttributeScore';
 
 export default {
   name: 'Result',
@@ -67,10 +73,23 @@ export default {
       attributes: {
         ...attributes,
       },
+      customScoreSwitch: false,
+      changeScoreDialog: false,
     };
+  },
+  computed: {
+    customScoreSwitchLablel() {
+      if (this.customScoreSwitch === false) {
+        return 'Calculating With Default Scores';
+      }
+      return 'Use the Button Below To Change';
+    },
+  },
+  methods: {
   },
   components: {
     ResultTable,
+    AttributeScore,
   },
 };
 </script>

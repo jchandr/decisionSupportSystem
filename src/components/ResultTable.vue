@@ -24,7 +24,7 @@
 <script>
   import { filter } from 'lodash/collection';
   import dataStructure from '../assets/companyDataStructure';
-  import companyScore from '../assets/scores';
+  import companyScore from '../assets/calculateScores';
 
   export default {
     name: 'ResultTable',
@@ -36,6 +36,9 @@
       workData: {
         type: Array,
         required: true,
+      },
+      attributeScores: {
+        type: Object,
       },
     },
     data() {
