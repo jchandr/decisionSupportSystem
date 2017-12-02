@@ -48,7 +48,7 @@
         </v-flex>
         <v-flex xs8 text-xs>
           <v-card dark color="secondary">
-              <ResultTable :control="attributes" :workData="workbookData"></ResultTable>
+              <ResultTable :control="attributes" :workData="processedInput"></ResultTable>
           </v-card>
         </v-flex>
       </v-layout>
@@ -60,6 +60,7 @@
 import attributes from '../assets/frontEndAttributes';
 import ResultTable from './ResultTable';
 import AttributeScore from './AttributeScore';
+import dataStructure from '../assets/companyDataStructure';
 
 export default {
   name: 'Result',
@@ -75,6 +76,7 @@ export default {
       },
       customScoreSwitch: false,
       changeScoreDialog: false,
+      processedInput: [],
     };
   },
   computed: {
@@ -86,6 +88,39 @@ export default {
     },
   },
   methods: {
+    processInput() {
+      const d = new Date();
+      this.workbookData.forEach((e) => {
+        const temp = {
+          ...dataStructure,
+        };
+        temp.city = e.city;
+        temp.company = e.company;
+        temp.companySize = e.companySize.toLowerCase();
+        temp.funding = e.funding;
+        if (e.funding === 'YES') {
+          temp.funding = true;
+        } else {
+          temp.funding = false;
+        }
+        temp.primaryMarket = e.primaryMarket.toLowerCase();
+        temp.production2013 = parseFloat(e.production2013);
+        temp.production2014 = parseFloat(e.production2014);
+        temp.production2015 = parseFloat(e.production2015);
+        temp.production2016 = parseFloat(e.production2016);
+        temp.rank = Number(e.rank);
+        temp.state = e.state;
+        temp.totalMw = parseFloat(e.totalMw);
+        temp.totalMw2014 = parseFloat(e.totalMw2014);
+        temp.totalProduction = Number(e.totalProduction);
+        temp.yearFounded = Number(e.yearFounded);
+        temp.experience = d.getFullYear() - temp.yearFounded;
+        this.processedInput.push(temp);
+      });
+    },
+  },
+  created() {
+    this.processInput();
   },
   components: {
     ResultTable,

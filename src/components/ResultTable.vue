@@ -23,8 +23,6 @@
 
 <script>
   import { filter } from 'lodash/collection';
-  import dataStructure from '../assets/companyDataStructure';
-  import companyScore from '../assets/calculateScores';
 
   export default {
     name: 'ResultTable',
@@ -36,9 +34,6 @@
       workData: {
         type: Array,
         required: true,
-      },
-      attributeScores: {
-        type: Object,
       },
     },
     data() {
@@ -55,7 +50,6 @@
             align: 'left',
           },
         ],
-        processedInput: [],
         tempFilteredData: [],
       };
     },
@@ -66,52 +60,15 @@
       },
     },
     methods: {
-      processInput() {
-        this.workData.forEach((e) => {
-          const temp = {
-            ...dataStructure,
-          };
-          temp.city = e.city;
-          temp.company = e.company;
-          temp.companySize = e.companySize.toLowerCase();
-          temp.funding = e.funding;
-          if (e.funding === 'YES') {
-            temp.funding = true;
-          } else {
-            temp.funding = false;
-          }
-          temp.primaryMarket = e.primaryMarket.toLowerCase();
-          temp.production2013 = parseFloat(e.production2013);
-          temp.production2014 = parseFloat(e.production2014);
-          temp.production2015 = parseFloat(e.production2015);
-          temp.production2016 = parseFloat(e.production2016);
-          temp.rank = Number(e.rank);
-          temp.state = e.state;
-          temp.totalMw = parseFloat(e.totalMw);
-          temp.totalMw2014 = parseFloat(e.totalMw2014);
-          temp.totalProduction = Number(e.totalProduction);
-          temp.yearFounded = Number(e.yearFounded);
-          this.processedInput.push(temp);
-        });
-      },
       applyFilters() {
         this.tempFilteredData = [];
-        this.tempFilteredData = filter(this.processedInput, (o) => {
+        this.tempFilteredData = filter(this.workData, (o) => {
           if (this.control.location.isEnabled === true) {
             return o.state === this.control.location.currentValue;
           }
           return true;
         });
       },
-      calculateScores() {
-        this.filteredInput.forEach((e) => {
-          e.score = companyScore(e);
-        });
-      },
-    },
-    created() {
-      this.processInput();
-      this.calculateScores();
     },
   };
 </script>

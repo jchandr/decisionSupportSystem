@@ -3,7 +3,7 @@
     <v-card>
       <v-card-title class="headline">Attribute Scores</v-card-title>
       <v-card-text>
-        <v-container fluid v-bind="{ [`grid-list-${size}`]: true }">
+        <v-container fluid>
           <v-layout row wrap>
             <v-flex xs2>
               <v-card flat tile>
@@ -24,7 +24,11 @@
             <v-flex xs2>
               <v-card flat tile>
                 <v-card-title>Total Production</v-card-title>
-                <v-card-text>{{ n }}</v-card-text>
+                <v-card-text>
+                  <v-text-field label="Utility"></v-text-field>
+                  <v-text-field label="Utility"></v-text-field>
+                  <v-text-field label="Utility"></v-text-field>
+                </v-card-text>
               </v-card>
             </v-flex>
             <v-flex xs2>
@@ -63,7 +67,7 @@
       <v-card-actions >
         <v-spacer></v-spacer>
         <v-btn color="red darken-1" flat @click.native="$emit('cancel')">Cancel</v-btn>
-        <v-btn color="blue darken-1" flat @click.native="dialog = false">Update</v-btn>
+        <v-btn color="blue darken-1" flat @click.native="$emit('update')">Update</v-btn>
       </v-card-actions>
     </v-card>
   </div>
