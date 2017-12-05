@@ -1,8 +1,10 @@
 <template>
   <div>
     <router-view></router-view>
-    <v-dialog v-model="changeScoreDialog">
-      <AttributeScore @cancel="changeScoreDialog = false"></AttributeScore>
+    <v-dialog v-model="changeAttributeDialog">
+      <AttributeScore @cancel="changeAttributeDialog = false"
+                      :scoresToEdit="currentScores"
+                      @update="handleCustomScoring"></AttributeScore>
     </v-dialog>
     <v-container grid-list-md>
       <v-layout row wrap>
@@ -43,8 +45,8 @@
               </v-expansion-panel>
             <!--</v-card-text>-->
           </v-card>
-          <v-switch :label="customScoreSwitchLablel" v-model="customScoreSwitch"></v-switch>
-          <v-btn @click.native="changeScoreDialog = true" v-if="customScoreSwitch" block> Change Attribute Weightage</v-btn>
+          <v-switch :label="customScoreSwitchLablel" @change="handleScoreSwitch" v-model="customScoreSwitch"></v-switch>
+          <v-btn @click.native="changeAttributeDialog = true" v-if="customScoreSwitch" block> Change Attribute Weightage</v-btn>
         </v-flex>
         <v-flex xs8 text-xs>
           <v-card dark color="secondary">
@@ -61,6 +63,8 @@ import attributes from '../assets/frontEndAttributes';
 import ResultTable from './ResultTable';
 import AttributeScore from './AttributeScore';
 import dataStructure from '../assets/companyDataStructure';
+import scores from '../assets/defaultScores';
+import calculateScore from '../assets/calculateScores';
 
 export default {
   name: 'Result',
@@ -75,8 +79,11 @@ export default {
         ...attributes,
       },
       customScoreSwitch: false,
-      changeScoreDialog: false,
+      changeAttributeDialog: false,
       processedInput: [],
+      currentScores: undefined,
+      lastCustomScores: undefined,
+      defaultScores: undefined,
     };
   },
   computed: {
@@ -118,9 +125,34 @@ export default {
         this.processedInput.push(temp);
       });
     },
+    handleCustomScoring(customScores) {
+      this.lastCustomScores = customScores;
+      this.changeAttributeDialog = false;
+      this.processedInput.forEach((e) => {
+        e.score = calculateScore(e, customScores);
+      });
+    },
+    handleScoreSwitch(switchValue) {
+      if (switchValue === true) {
+        this.handleCustomScoring(this.lastCustomScores);
+      } else {
+        this.calculateDefaultScores();
+      }
+    },
+    calculateDefaultScores() {
+      this.processedInput.forEach((e) => {
+        e.score = calculateScore(e, this.defaultScores);
+      });
+    },
   },
   created() {
     this.processInput();
+    this.defaultScores = {
+      ...scores,
+    };
+    this.currentScores = JSON.parse(JSON.stringify(this.defaultScores));
+    this.lastCustomScores = JSON.parse(JSON.stringify(this.defaultScores));
+    this.calculateDefaultScores();
   },
   components: {
     ResultTable,
@@ -131,8 +163,4 @@ export default {
 
 <style lang="stylus">
   @import '../stylus/main'
-
-  .result-control-filters
-    position: fixed
-    width: inherit
 </style>

@@ -1,42 +1,31 @@
-export default function (company) {
+export default function (company, scores) {
   let score = 0;
   switch (company.companySize) {
-    case ('tiny'):
-      score += 1;
-      break;
     case ('small'):
-      score += 2.5;
-      break;
-    case ('very-small'):
-      score += 1;
+      score += scores.companySize.small;
       break;
     case ('medium'):
-      score += 4;
-      break;
-    case ('semi-large'):
-      score += 1;
+      score += scores.companySize.medium;
       break;
     case ('large'):
-      score += 0.5;
+      score += scores.companySize.large;
       break;
     default:
       break;
   }
   switch (company.primaryMarket) {
     case ('utility'):
-      score += 5;
+      score += scores.primaryMarket.utility;
       break;
     case ('commercial'):
-      score += 4;
+      score += scores.primaryMarket.commercial;
       break;
     case ('residential'):
-      score += 1;
+      score += scores.primaryMarket.residential;
       break;
     default:
       break;
   }
-  if (company.funding) {
-    score += 1;
-  }
+
   return score;
 }
