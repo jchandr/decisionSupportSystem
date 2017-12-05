@@ -26,6 +26,5 @@ export default function (company, scores) {
     default:
       break;
   }
-
   return score;
 }
