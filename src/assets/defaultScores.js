@@ -4,6 +4,13 @@ export default {
     commercial: 4,
     residential: 1,
   },
+  primaryService: {
+    epc: 0,
+    developer: 0,
+    rooftopContractor: 0,
+    constructionFirm: 0,
+    electricalSubcontractor: 0,
+  },
   growthPercentage: {
     negative: 6,
     lessThan50: 3,
@@ -21,7 +28,21 @@ export default {
     y15plus: 0,
   },
   technology: {
-    csv: 0,
-    pv: 0,
+    pvOrThermal: 4,
+    pv: 5,
+  },
+  percentageOfTotalInstalledIn2016: {
+    lessThan50: 5,
+    greaterThan50: 3,
+  },
+  numberOfProjects: {
+    range0to25: 3,
+    range25to100: 5,
+    range100plus: 1,
+  },
+  numberOfEmployees: {
+    range0to15: 1,
+    range15to100: 3,
+    range100plus: 5,
   },
 };

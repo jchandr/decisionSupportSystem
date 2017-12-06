@@ -111,10 +111,11 @@ export default {
           temp.funding = false;
         }
         temp.primaryMarket = e.primaryMarket.toLowerCase();
-        temp.production2013 = parseFloat(e.production2013);
-        temp.production2014 = parseFloat(e.production2014);
+        temp.primaryService = e.primaryService.toLocaleLowerCase();
         temp.production2015 = parseFloat(e.production2015);
         temp.production2016 = parseFloat(e.production2016);
+        temp.growthPercentage = parseFloat(e.growthPercentage);
+        temp.percentageOfTotalInstalledIn2016 = parseFloat(e.percentageOfTotalInstalledIn2016);
         temp.rank = Number(e.rank);
         temp.state = e.state;
         temp.totalMw = parseFloat(e.totalMw);
@@ -122,6 +123,9 @@ export default {
         temp.totalProduction = Number(e.totalProduction);
         temp.yearFounded = Number(e.yearFounded);
         temp.experience = d.getFullYear() - temp.yearFounded;
+        temp.numberOfProjects = Number(e.numberOfProjects);
+        temp.numberOfEmployees = Number(e.numberOfEmployees);
+        temp.technology = e.technology.toLocaleLowerCase();
         this.processedInput.push(temp);
       });
     },

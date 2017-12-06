@@ -19,6 +19,8 @@
   </div>
 </template>
 <script>
+  /* eslint-disable dot-notation */
+
   import xlsx from 'xlsx';
 
   export default {
@@ -40,6 +42,27 @@
             type: this.rABS ? 'binary' : 'array',
           });
           /* DO SOMETHING WITH workbook HERE */
+          workbook.Sheets.Sheet1['A1'].v = 'ranks';
+          workbook.Sheets.Sheet1['B1'].v = 'company';
+          workbook.Sheets.Sheet1['C1'].v = 'city';
+          workbook.Sheets.Sheet1['D1'].v = 'state';
+          workbook.Sheets.Sheet1['E1'].v = 'primaryMarket';
+          workbook.Sheets.Sheet1['F1'].v = 'primaryService';
+          workbook.Sheets.Sheet1['G1'].v = 'companySize';
+          workbook.Sheets.Sheet1['H1'].v = 'yearFounded';
+          workbook.Sheets.Sheet1['I1'].v = 'funding';
+          workbook.Sheets.Sheet1['J1'].v = 'totalProduction';
+          workbook.Sheets.Sheet1['K1'].v = 'totalMw';
+          workbook.Sheets.Sheet1['L1'].v = 'percentageOfTotalInstalledIn2016';
+          workbook.Sheets.Sheet1['M1'].v = 'age';
+          workbook.Sheets.Sheet1['N1'].v = 'production2016';
+          workbook.Sheets.Sheet1['O1'].v = 'production2013';
+          workbook.Sheets.Sheet1['P1'].v = 'production2014';
+          workbook.Sheets.Sheet1['Q1'].v = 'production2015';
+          workbook.Sheets.Sheet1['R1'].v = 'growthPercentage';
+          workbook.Sheets.Sheet1['S1'].v = 'technology';
+          workbook.Sheets.Sheet1['T1'].v = 'numberOfProjects';
+          workbook.Sheets.Sheet1['U1'].v = 'numberOfEmployees';
           this.workbookInJson = xlsx.utils.sheet_to_json(workbook.Sheets.Sheet1);
           this.$emit('upload', this.workbookInJson);
         };

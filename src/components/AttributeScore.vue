@@ -27,16 +27,6 @@
             </v-flex>
             <v-flex xs2>
               <v-card flat tile>
-                <v-card-title>Total Production</v-card-title>
-                <v-card-text>
-                  <v-text-field label="Utility"></v-text-field>
-                  <v-text-field label="Utility"></v-text-field>
-                  <v-text-field label="Utility"></v-text-field>
-                </v-card-text>
-              </v-card>
-            </v-flex>
-            <v-flex xs2>
-              <v-card flat tile>
                 <v-card-title>Primary Market</v-card-title>
                 <v-card-text>
                   <v-text-field v-model.number="scores.primaryMarket.utility" label="Utility"></v-text-field>
@@ -58,9 +48,23 @@
             </v-flex>
             <v-flex xs2>
               <v-card flat tile>
+                <v-card-title>Primary Service</v-card-title>
+                <v-card-text>
+                  <v-text-field v-model.number="scores.primaryService.epc" label="EPC"></v-text-field>
+                  <v-text-field v-model.number="scores.primaryService.rooftopContractor" label="Rooftop Contractor"></v-text-field>
+                  <v-text-field v-model.number="scores.primaryService.developer" label="Developer"></v-text-field>
+                  <v-text-field v-model.number="scores.primaryService.electricalSubcontractor" label="Electrical Subcontractor">
+                  </v-text-field>
+                  <v-text-field v-model.number="scores.experience.constructionFirm" label="Construction Firm">
+                  </v-text-field>
+                </v-card-text>
+              </v-card>
+            </v-flex>
+            <v-flex xs2>
+              <v-card flat tile>
                 <v-card-title>Solar Power Tech</v-card-title>
                 <v-card-text>
-                  <v-text-field v-model.number="scores.technology.csv" label="Concentrated Solar Power"></v-text-field>
+                  <v-text-field v-model.number="scores.technology.pvOrThermal" label="PV / Thermal"></v-text-field>
                   <v-text-field v-model.number="scores.technology.pv" label="Photovoltaic"></v-text-field>
                 </v-card-text>
               </v-card>
