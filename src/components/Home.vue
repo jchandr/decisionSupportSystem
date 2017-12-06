@@ -1,8 +1,8 @@
 <template>
   <div>
     <router-view></router-view>
-    <FileUpload @upload="handleUpload"></FileUpload>
     <v-layout column align-center>
+      <FileUpload @upload="handleUpload"></FileUpload>
       <v-btn
       href="https://drive.google.com/open?id=1lL6Snzht4stPq1AXnHf-mw5F3Vq_I9Ub"
       target="blank">
