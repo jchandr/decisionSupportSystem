@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-layout>
+    <v-layout class="pb-3">
       <v-flex>
         <v-card>
           <input type='file' name="sampleFile" @change='handleFileInput'>
