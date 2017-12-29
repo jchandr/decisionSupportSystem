@@ -1,21 +1,26 @@
-# dss
+Decision Support System
 
-> A Vue.js project
+Setup Instructions
 
-## Build Setup
+Mac
+Download the application from this link https://github.com/jchandr/decisionSupportSystem/archive/master.zip and place the downloaded zip to anywhere on your computer.
+If you have Node installed, skip to next step. Else, Download Node for your system from https://nodejs.org/en/download/ and install.
+Extract the content on the same location. Say Downloads. This will extract to a folder ‘decisionSupportSystem-master’.
+Use spotlight on your Mac and search ‘terminal’ and hit enter.
+In the terminal run ‘cd ~/<location_of_ decisionSupportSystem-master’>/ decisionSupportSystem-master’.
+In the terminal, run ‘npm install’. Wait until the installer is done.
+In the terminal, run ‘npm run dev’. Wait until it says ‘Complied Successfully’.
+Browse the application at http://localhost:8080
 
-``` bash
-# install dependencies
-npm install
+Windows
+Download the application from this link https://github.com/jchandr/decisionSupportSystem/archive/master.zip and place the downloaded zip to anywhere on your computer.
+If you have Node installed, skip to next step. Else, Download Node for your system from https://nodejs.org/en/download/ and install.
+Extract the content on the same location. Say Downloads. This will extract to a folder ‘decisionSupportSystem-master’.
+Go to location where the folder ‘decisionSupportSystem-master’ is present.
+While holding shift key on your keyboard, right click the folder and chose ‘Open Powershell Window here’ / ‘Open Command Prompt here’.
+In the prompt, run ‘npm install’. Wait until the installer is done.
+In the prompt, run ‘npm run dev’. Wait until it says ‘Complied Successfully’.
+Browse the application at http://localhost:8080
 
-# serve with hot reload at localhost:8080
-npm run dev
 
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+© MIT Licence
